@@ -1,0 +1,46 @@
+buildscript {
+    ext {
+        springBootVersion = '2.2.6.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+allprojects {
+    group 'co.za.codeboss'
+    version '1.0-SNAPSHOT'
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = '14'
+
+    repositories {
+        mavenCentral()
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+        }
+    }
+}
+
+
+
