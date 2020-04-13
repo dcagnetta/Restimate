@@ -1,0 +1,20 @@
+dependencies {
+    implementation project(':application')
+    implementation project(':core')
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    // Required otherwise get an error on websockets
+    implementation 'org.springframework.boot:spring-boot-starter-reactor-netty'
+}
+
+test {
+    useJUnitPlatform()
+}
