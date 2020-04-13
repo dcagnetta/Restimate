@@ -12,6 +12,10 @@ buildscript {
     }
 }
 
+// Plugins available to all
+plugins {
+}
+
 allprojects {
     group 'co.za.codeboss'
     version '1.0-SNAPSHOT'
