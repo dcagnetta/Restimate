@@ -1,7 +1,7 @@
 package co.za.codeboss.web.session;
 
-import co.za.codeboss.application.session.createsession.CreateSession;
-import co.za.codeboss.application.session.createsession.ICreateSessionHandler;
+import co.za.codeboss.application.session.create.CreateSession;
+import co.za.codeboss.application.session.create.ICreateSessionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

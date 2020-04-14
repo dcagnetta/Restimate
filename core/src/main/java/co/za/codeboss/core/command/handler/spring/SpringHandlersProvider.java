@@ -1,8 +1,8 @@
 package co.za.codeboss.core.command.handler.spring;
 
 
-import co.za.codeboss.core.command.HandlersProvider;
 import co.za.codeboss.core.command.handler.CommandHandler;
+import co.za.codeboss.core.command.HandlersProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;

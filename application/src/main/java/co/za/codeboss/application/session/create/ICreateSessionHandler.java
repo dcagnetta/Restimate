@@ -1,4 +1,4 @@
-package co.za.codeboss.application.session.createsession;
+package co.za.codeboss.application.session.create;
 
 import co.za.codeboss.core.command.handler.CommandHandler;
 

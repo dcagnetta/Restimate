@@ -1,9 +1,9 @@
 package co.za.codeboss.core;
 
-import co.za.codeboss.core.command.HandlersProvider;
-import co.za.codeboss.core.command.impl.CommandDispatcher;
 import co.za.codeboss.core.setup.TestCommand;
 import co.za.codeboss.core.setup.TestCommandHandler;
+import co.za.codeboss.core.command.HandlersProvider;
+import co.za.codeboss.core.command.impl.CommandDispatcher;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
