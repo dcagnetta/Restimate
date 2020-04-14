@@ -1,7 +1,7 @@
 package co.za.codeboss.web.session;
 
 import co.za.codeboss.application.session.create.CreateSession;
-import co.za.codeboss.application.session.create.ICreateSessionHandler;
+import co.za.codeboss.application.session.create.ICreateSessionUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/session")
 public class SessionController {
 
-    private ICreateSessionHandler creator;
+    private ICreateSessionUseCase creator;
 
     @Autowired
-    public SessionController(ICreateSessionHandler creator) {
+    public SessionController(ICreateSessionUseCase creator) {
         this.creator = creator;
     }
 
