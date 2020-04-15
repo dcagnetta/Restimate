@@ -1,0 +1,13 @@
+dependencies {
+    implementation 'org.springframework.data:spring-data-elasticsearch'
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+/*
+ You can easily generate your own configuration metadata file from items annotated with
+        @ConfigurationProperties by using the spring-boot-configuration-processor jar.
+*/
+    annotationProcessor 'org.springframework.boot:spring-boot-autoconfigure-processor'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+}
