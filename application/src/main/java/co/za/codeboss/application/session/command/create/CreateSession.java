@@ -1,4 +1,4 @@
-package co.za.codeboss.application.session.create;
+package co.za.codeboss.application.session.command.create;
 
 import co.za.codeboss.core.annotations.Command;
 import lombok.AllArgsConstructor;

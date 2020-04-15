@@ -1,7 +1,8 @@
 package co.za.codeboss.web.session;
 
-import co.za.codeboss.application.session.create.CreateSession;
-import co.za.codeboss.application.session.create.ICreateSessionUseCase;
+import co.za.codeboss.application.session.command.create.CreateSession;
+import co.za.codeboss.application.session.command.create.ICreateSessionUseCase;
+import co.za.codeboss.application.session.command.join.JoinSession;
 import co.za.codeboss.application.session.query.FindSession;
 import co.za.codeboss.core.command.handler.ICommandHandler;
 import co.za.codeboss.domain.model.Session;
@@ -18,13 +19,16 @@ public class SessionController {
 
     private ICreateSessionUseCase creator;
     private ICommandHandler<FindSession, Session> finder;
+    private ICommandHandler<JoinSession, Void> joiner;
 
     @Autowired
     public SessionController(
             ICreateSessionUseCase creator,
-            ICommandHandler<FindSession, Session> finder ) {
+            ICommandHandler<FindSession, Session> finder,
+            ICommandHandler<JoinSession, Void> joiner) {
         this.creator = creator;
         this.finder = finder;
+        this.joiner = joiner;
     }
 
     // http://localhost:8080/session/create
@@ -42,5 +46,11 @@ public class SessionController {
 
         var session = finder.handle(query);
         return new ResponseEntity<>(session, HttpStatus.OK);
+    }
+
+    @PostMapping("/join")
+    @ResponseStatus(HttpStatus.OK)
+    public void join(@RequestBody JoinSession command){
+        joiner.handle(command);
     }
 }
