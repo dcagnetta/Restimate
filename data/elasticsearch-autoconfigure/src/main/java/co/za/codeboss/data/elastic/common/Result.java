@@ -1,7 +1,6 @@
 package co.za.codeboss.data.elastic.common;
 
 import lombok.Data;
-import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 
@@ -64,7 +63,7 @@ public class Result<T> implements Serializable {
      * @param <T> Generic param
      * @return Response message {@code Result}
      */
-    public static <T> Result<T> success(@Nullable T data) {
+    public static <T> Result<T> success(T data) {
         return new Result<>(ResultCode.SUCCESS, data);
     }
 }

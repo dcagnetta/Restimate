@@ -1,4 +1,4 @@
-package model;
+package co.za.codeboss.domain.model;
 
 import java.util.UUID;
 
