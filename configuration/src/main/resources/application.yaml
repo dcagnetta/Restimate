@@ -12,3 +12,9 @@ logging:
 restimate:
   data:
     elasticsearch:
+      schema: https
+      host: test-elastic-cluster-1016506267.eu-west-1.bonsaisearch.net
+      port: 443
+      account:
+        username: 413cqiedrw
+        password: 1srucnxsxj

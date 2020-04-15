@@ -1,15 +1,15 @@
 package co.za.codeboss.data.elastic.documents;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.UUID;
 
+@Data
+@Builder
 @NoArgsConstructor
-@Getter @Setter
+@AllArgsConstructor
 @Document(indexName = "session")
 public class Session {
     @Id
