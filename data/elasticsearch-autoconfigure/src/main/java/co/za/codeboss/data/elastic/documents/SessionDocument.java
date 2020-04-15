@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -11,8 +12,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(indexName = "session")
-public class Session {
+public class SessionDocument {
     @Id
     private UUID id;
     private String name;
+    private String shortId;
+
+    private Set<EstimatorNestedDocument> estimators;
+    private Set<EstimationItemNestedDocument> items;
 }

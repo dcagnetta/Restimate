@@ -1,11 +1,11 @@
-package model;
+package co.za.codeboss.data.elastic.documents;
 
 import lombok.Data;
 
 import java.util.UUID;
 
 @Data
-public class Estimator {
+public class EstimatorNestedDocument {
     private UUID id;
     private String name;
 }

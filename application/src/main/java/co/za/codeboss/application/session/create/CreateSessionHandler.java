@@ -2,7 +2,7 @@ package co.za.codeboss.application.session.create;
 
 import co.za.codeboss.core.annotations.CommandHandlerAnnotation;
 import co.za.codeboss.core.command.handler.CommandHandler;
-import co.za.codeboss.data.elastic.documents.Session;
+import co.za.codeboss.data.elastic.documents.SessionDocument;
 import co.za.codeboss.data.elastic.repositories.SessionRepository;
 
 import java.util.UUID;
@@ -18,7 +18,7 @@ public class CreateSessionHandler implements CommandHandler<CreateSession, Void>
 
     @Override
     public Void handle(CreateSession createSession) {
-        var session = Session.builder().id(UUID.randomUUID()).name("Test Session").build();
+        var session = SessionDocument.builder().id(UUID.randomUUID()).name("Test Session").build();
         repository.save(session);
         return null;
     }
