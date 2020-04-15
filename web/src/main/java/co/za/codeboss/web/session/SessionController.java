@@ -3,7 +3,7 @@ package co.za.codeboss.web.session;
 import co.za.codeboss.application.session.create.CreateSession;
 import co.za.codeboss.application.session.create.ICreateSessionUseCase;
 import co.za.codeboss.application.session.query.FindSession;
-import co.za.codeboss.core.command.handler.CommandHandler;
+import co.za.codeboss.core.command.handler.ICommandHandler;
 import co.za.codeboss.domain.model.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,12 +17,12 @@ import java.util.UUID;
 public class SessionController {
 
     private ICreateSessionUseCase creator;
-    private CommandHandler<FindSession, Session> finder;
+    private ICommandHandler<FindSession, Session> finder;
 
     @Autowired
     public SessionController(
             ICreateSessionUseCase creator,
-            CommandHandler<FindSession, Session> finder ) {
+            ICommandHandler<FindSession, Session> finder ) {
         this.creator = creator;
         this.finder = finder;
     }

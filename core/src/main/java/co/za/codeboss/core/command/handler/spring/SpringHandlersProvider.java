@@ -1,8 +1,8 @@
 package co.za.codeboss.core.command.handler.spring;
 
 
-import co.za.codeboss.core.command.handler.CommandHandler;
-import co.za.codeboss.core.command.HandlersProvider;
+import co.za.codeboss.core.command.handler.ICommandHandler;
+import co.za.codeboss.core.command.IHandlersProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -20,7 +20,7 @@ import java.util.Map;
  * https://stackoverflow.com/questions/47915493/spring-5-programmatically-register-generic-bean
  */
 @Component
-public class SpringHandlersProvider implements HandlersProvider, ApplicationListener<ContextRefreshedEvent> {
+public class SpringHandlersProvider implements IHandlersProvider, ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
     private ConfigurableListableBeanFactory beanFactory;
@@ -29,12 +29,12 @@ public class SpringHandlersProvider implements HandlersProvider, ApplicationList
 
     @SuppressWarnings("unchecked")
 	@Override
-    public CommandHandler<Object, Object> getHandler(Object command) {
+    public ICommandHandler<Object, Object> getHandler(Object command) {
         String beanName = handlers.get(command.getClass());
         if (beanName == null) {
             throw new RuntimeException("command handler not found. Command class is " + command.getClass());
         }
-        CommandHandler<Object, Object> handler = beanFactory.getBean(beanName, CommandHandler.class);
+        ICommandHandler<Object, Object> handler = beanFactory.getBean(beanName, ICommandHandler.class);
         return handler;
     }
 
@@ -45,7 +45,7 @@ public class SpringHandlersProvider implements HandlersProvider, ApplicationList
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         handlers.clear();
-        String[] commandHandlersNames = beanFactory.getBeanNamesForType(CommandHandler.class);
+        String[] commandHandlersNames = beanFactory.getBeanNamesForType(ICommandHandler.class);
         for (String beanName : commandHandlersNames) {
             BeanDefinition commandHandler = beanFactory.getBeanDefinition(beanName);
             try {
@@ -64,7 +64,7 @@ public class SpringHandlersProvider implements HandlersProvider, ApplicationList
      **/
     private Class<?> getHandledCommandType(Class<?> clazz) {
         Type[] genericInterfaces = clazz.getGenericInterfaces();
-        ParameterizedType type = findByRawType(genericInterfaces, CommandHandler.class);
+        ParameterizedType type = findByRawType(genericInterfaces, ICommandHandler.class);
         return (Class<?>) type.getActualTypeArguments()[0]; // the TCommand
     }
 

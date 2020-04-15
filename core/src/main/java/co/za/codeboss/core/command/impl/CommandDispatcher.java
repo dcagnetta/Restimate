@@ -2,8 +2,8 @@ package co.za.codeboss.core.command.impl;
 
 import co.za.codeboss.core.annotations.Command;
 import co.za.codeboss.core.command.Dispatcher;
-import co.za.codeboss.core.command.HandlersProvider;
-import co.za.codeboss.core.command.handler.CommandHandler;
+import co.za.codeboss.core.command.IHandlersProvider;
+import co.za.codeboss.core.command.handler.ICommandHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommandDispatcher implements Dispatcher {
 
-	private HandlersProvider handlersProvider;
+	private IHandlersProvider handlersProvider;
 
 	@Autowired
-	public CommandDispatcher(HandlersProvider handlersProvider) {
+	public CommandDispatcher(IHandlersProvider handlersProvider) {
 		this.handlersProvider = handlersProvider;
 	}
 
@@ -28,7 +28,7 @@ public class CommandDispatcher implements Dispatcher {
 			return null;
 		}
 
-		CommandHandler<Object, Object> handler = handlersProvider.getHandler(command);
+		ICommandHandler<Object, Object> handler = handlersProvider.getHandler(command);
 		//You can add Your own capabilities here: dependency injection, security, transaction management, logging, profiling, spying, storing commands, etc
 		Object result = handler.handle(command);
 		//You can add Your own capabilities here

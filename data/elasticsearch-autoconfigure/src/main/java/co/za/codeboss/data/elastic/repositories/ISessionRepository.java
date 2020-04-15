@@ -6,6 +6,6 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import java.util.List;
 import java.util.UUID;
 
-public interface  SessionRepository extends ElasticsearchRepository<SessionDocument, UUID> {
+public interface ISessionRepository extends ElasticsearchRepository<SessionDocument, UUID> {
     List<SessionDocument> findByName(String name);
 }

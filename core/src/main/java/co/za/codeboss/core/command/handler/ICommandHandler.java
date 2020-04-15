@@ -21,11 +21,11 @@ package co.za.codeboss.core.command.handler;
 import co.za.codeboss.core.annotations.Command;
 /**
  * 
- * @author Dillan
+ * @author Dillan1
  *
  * @param <TCommand> command
  * @param <TResult> result type - for asynchronous {@link Command}commands (asynchronous=true) should be {@link Void}
  */
-public interface CommandHandler<TCommand, TResult> {
+public interface ICommandHandler<TCommand, TResult> {
     public TResult handle(TCommand command);
 }

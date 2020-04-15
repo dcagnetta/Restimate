@@ -1,6 +1,6 @@
 package co.za.codeboss.core.annotations;
 
-import co.za.codeboss.core.command.handler.CommandHandler;
+import co.za.codeboss.core.command.handler.ICommandHandler;
 
 import java.lang.annotation.*;
 
@@ -11,7 +11,7 @@ public @interface Command {
 	/**
 	 * Suggestion for a Server that this command may be run in asynchronous way.
 	 * <br>
-	 * If true than {@link CommandHandler} must return void - otherwise Server will throw an exception
+	 * If true than {@link ICommandHandler} must return void - otherwise Server will throw an exception
 	 * @return
 	 */
     boolean asynchronous() default false;

@@ -1,18 +1,18 @@
 package co.za.codeboss.application.session.create;
 
 import co.za.codeboss.core.annotations.CommandHandlerAnnotation;
-import co.za.codeboss.core.command.handler.CommandHandler;
+import co.za.codeboss.core.command.handler.ICommandHandler;
 import co.za.codeboss.data.elastic.documents.SessionDocument;
-import co.za.codeboss.data.elastic.repositories.SessionRepository;
+import co.za.codeboss.data.elastic.repositories.ISessionRepository;
 
 import java.util.UUID;
 
 @CommandHandlerAnnotation
-public class CreateSessionHandler implements CommandHandler<CreateSession, Void>, ICreateSessionUseCase {
+public class CreateSessionHandler implements ICommandHandler<CreateSession, Void>, ICreateSessionUseCase {
 
-    private SessionRepository repository;
+    private ISessionRepository repository;
 
-    public CreateSessionHandler(SessionRepository repository) {
+    public CreateSessionHandler(ISessionRepository repository) {
         this.repository = repository;
     }
 
