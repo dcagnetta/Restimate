@@ -7,12 +7,14 @@ import co.za.codeboss.core.command.impl.CommandDispatcher;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.util.concurrent.ExecutionException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CommandHandlerTests {
 
     @Test
-    public void should_send_test_command() {
+    public void should_send_test_command() throws ExecutionException, InterruptedException {
         var command = new TestCommand("testing the command");
         var handler = new TestCommandHandler();
 
@@ -20,9 +22,9 @@ public class CommandHandlerTests {
 
         var dispatcher = new CommandDispatcher(handlersProviderMock);
 
-        var result = dispatcher.send(command);
+        var future = dispatcher.send(command);
 
-        assertEquals(result, "testing the command");
+        assertEquals(future.get(), "testing the command");
     }
 
     private IHandlersProvider setupHandlersProvider(TestCommand command, TestCommandHandler handler) {

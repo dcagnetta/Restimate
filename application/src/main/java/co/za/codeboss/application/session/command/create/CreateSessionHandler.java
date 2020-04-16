@@ -5,6 +5,9 @@ import co.za.codeboss.core.command.handler.ICommandHandler;
 import co.za.codeboss.data.elastic.documents.SessionDocument;
 import co.za.codeboss.data.elastic.repositories.ISessionRepository;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
+
 @CommandHandlerAnnotation
 public class CreateSessionHandler implements ICommandHandler<CreateSession, Void>, ICreateSessionUseCase {
 
@@ -15,14 +18,14 @@ public class CreateSessionHandler implements ICommandHandler<CreateSession, Void
     }
 
     @Override
-    public Void handle(CreateSession command) {
+    public Future<Void> handle(CreateSession command) {
         var session = SessionDocument.builder()
                 .id(command.getId())
                 .name(command.getName())
                 .build();
 
         repository.save(session);
-        return null;
+        return  CompletableFuture.completedFuture(null);
     }
 
 }

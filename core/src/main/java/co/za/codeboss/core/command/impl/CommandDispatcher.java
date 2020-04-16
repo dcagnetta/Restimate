@@ -7,6 +7,8 @@ import co.za.codeboss.core.command.handler.ICommandHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.Future;
+
 
 @Component
 public class CommandDispatcher implements Dispatcher {
@@ -22,7 +24,7 @@ public class CommandDispatcher implements Dispatcher {
 	 * Gets the handler for the command type
 	 * */
 	@Override
-	public Object send(Object command){
+	public Future<Object> send(Object command){
 		if (isAsynchronous(command)){
 			//TODO add to the queue. Queue should send this command to the RunEnvironment
 			return null;
@@ -30,9 +32,9 @@ public class CommandDispatcher implements Dispatcher {
 
 		ICommandHandler<Object, Object> handler = handlersProvider.getHandler(command);
 		//You can add Your own capabilities here: dependency injection, security, transaction management, logging, profiling, spying, storing commands, etc
-		Object result = handler.handle(command);
+		Future<Object> future = handler.handle(command);
 		//You can add Your own capabilities here
-		return result;
+		return future;
 	}
 
 	/**

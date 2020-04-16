@@ -7,6 +7,8 @@ import co.za.codeboss.data.elastic.repositories.ISessionRepository;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 @CommandHandlerAnnotation
 public class JoinSessionHandler implements ICommandHandler<JoinSession, Void> {
@@ -18,7 +20,7 @@ public class JoinSessionHandler implements ICommandHandler<JoinSession, Void> {
     }
 
     @Override
-    public Void handle(JoinSession command) {
+    public Future<Void> handle(JoinSession command) {
         var document =  repository.findById(command.getSessionId()).get();
 
         var estimator = EstimatorNestedDocument.create(command.getEstimatorName());
@@ -29,7 +31,8 @@ public class JoinSessionHandler implements ICommandHandler<JoinSession, Void> {
             estimators = new HashSet<>(Collections.singletonList(estimator));
             document.setEstimators(estimators);
             repository.save(document);
-            return null;
+
+            return CompletableFuture.completedFuture(null);
         }
 
         // joiners already present
