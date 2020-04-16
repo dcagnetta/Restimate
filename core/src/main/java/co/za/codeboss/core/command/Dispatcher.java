@@ -28,6 +28,6 @@ package co.za.codeboss.core.command;
  */
 public interface Dispatcher {
 
-	public abstract Object send(Object command);
+	public abstract Object send(Object command) throws Exception;
 
 }

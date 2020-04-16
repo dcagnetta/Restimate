@@ -1,20 +1,18 @@
 package co.za.codeboss.core;
 
-import co.za.codeboss.core.setup.TestCommand;
-import co.za.codeboss.core.setup.TestCommandHandler;
 import co.za.codeboss.core.command.IHandlersProvider;
 import co.za.codeboss.core.command.impl.CommandDispatcher;
+import co.za.codeboss.core.setup.TestCommand;
+import co.za.codeboss.core.setup.TestCommandHandler;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.concurrent.ExecutionException;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CommandHandlerTests {
 
     @Test
-    public void should_send_test_command() throws ExecutionException, InterruptedException {
+    public void should_send_test_command() throws Exception {
         var command = new TestCommand("testing the command");
         var handler = new TestCommandHandler();
 

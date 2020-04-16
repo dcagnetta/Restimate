@@ -3,7 +3,7 @@ package co.za.codeboss.application.session.command.create;
 import co.za.codeboss.core.annotations.CommandHandlerAnnotation;
 import co.za.codeboss.core.command.handler.ICommandHandler;
 import co.za.codeboss.data.elastic.documents.SessionDocument;
-import co.za.codeboss.data.elastic.repositories.ISessionRepository;
+import co.za.codeboss.data.elastic.repositories.ISessionElasticsearchRepository;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
@@ -11,9 +11,9 @@ import java.util.concurrent.Future;
 @CommandHandlerAnnotation
 public class CreateSessionHandler implements ICommandHandler<CreateSession, Void>, ICreateSessionUseCase {
 
-    private ISessionRepository repository;
+    private ISessionElasticsearchRepository repository;
 
-    public CreateSessionHandler(ISessionRepository repository) {
+    public CreateSessionHandler(ISessionElasticsearchRepository repository) {
         this.repository = repository;
     }
 

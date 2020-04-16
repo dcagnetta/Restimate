@@ -12,5 +12,5 @@ import java.util.concurrent.Future;
  */
 public interface ICommandHandler<TCommand, TResult> {
     @Async        //  Annotations Specifying an Executor Must Be On the Interface
-    Future<TResult> handle(TCommand command);
+    Future<TResult> handle(TCommand command) throws Exception;
 }

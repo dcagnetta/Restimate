@@ -3,7 +3,8 @@ package co.za.codeboss.application.session.command.join;
 import co.za.codeboss.core.annotations.CommandHandlerAnnotation;
 import co.za.codeboss.core.command.handler.ICommandHandler;
 import co.za.codeboss.data.elastic.documents.EstimatorNestedDocument;
-import co.za.codeboss.data.elastic.repositories.ISessionRepository;
+import co.za.codeboss.data.elastic.documents.SessionDocument;
+import co.za.codeboss.data.elastic.repositories.ISessionElasticsearchRepository;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -13,15 +14,16 @@ import java.util.concurrent.Future;
 @CommandHandlerAnnotation
 public class JoinSessionHandler implements ICommandHandler<JoinSession, Void> {
 
-    private ISessionRepository repository;
+    private ISessionElasticsearchRepository repository;
 
-    public JoinSessionHandler(ISessionRepository repository) {
+    public JoinSessionHandler(ISessionElasticsearchRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public Future<Void> handle(JoinSession command) {
-        var document =  repository.findById(command.getSessionId()).get();
+    public Future<Void> handle(JoinSession command) throws Exception {
+        Future<SessionDocument> future = repository.findOneById(command.getSessionId());
+        var document =  future.get();
 
         var estimator = EstimatorNestedDocument.create(command.getEstimatorName());
 

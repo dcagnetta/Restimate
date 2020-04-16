@@ -6,5 +6,5 @@ import java.util.UUID;
 
 @Data
 public class FindSession {
-    private UUID id;
+    private UUID sessionId;
 }

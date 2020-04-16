@@ -1,4 +1,6 @@
 dependencies {
+    implementation project(':domain')
+
     implementation 'org.springframework.data:spring-data-elasticsearch'
 
     implementation 'org.springframework.boot:spring-boot-starter'

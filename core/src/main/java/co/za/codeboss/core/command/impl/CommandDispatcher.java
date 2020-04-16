@@ -24,7 +24,7 @@ public class CommandDispatcher implements Dispatcher {
 	 * Gets the handler for the command type
 	 * */
 	@Override
-	public Future<Object> send(Object command){
+	public Future<Object> send(Object command) throws Exception {
 		if (isAsynchronous(command)){
 			//TODO add to the queue. Queue should send this command to the RunEnvironment
 			return null;

@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/session")
@@ -35,15 +34,15 @@ public class SessionController {
     // http://localhost:8080/session/create
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.OK)
-    public void create(@RequestBody CreateSession command){
+    public void create(@RequestBody CreateSession command) throws Exception{
         creator.handle(command);
     }
 
     // http://localhost:8080/session/bac3be54-b227-4027-8198-868713241a67
     @GetMapping("/{sessionId}")
-    public ResponseEntity<Session> getSession(@PathVariable("sessionId") UUID sessionId) throws ExecutionException, InterruptedException {
+    public ResponseEntity<Session> getSession(@PathVariable("sessionId") UUID sessionId) throws Exception {
         var query = new FindSession();
-        query.setId(sessionId);
+        query.setSessionId(sessionId);
 
         var session = finder.handle(query);
 
@@ -52,7 +51,7 @@ public class SessionController {
 
     @PostMapping("/join")
     @ResponseStatus(HttpStatus.OK)
-    public void join(@RequestBody JoinSession command){
+    public void join(@RequestBody JoinSession command) throws Exception{
         joiner.handle(command);
     }
 }
