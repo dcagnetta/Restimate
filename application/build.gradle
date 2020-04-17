@@ -2,6 +2,7 @@ dependencies {
     implementation project(':domain')
     implementation project(':core')
     implementation project(':data:elasticsearch-autoconfigure')
+    implementation project(':data:documents')
 
     compileOnly 'org.springframework.data:spring-data-elasticsearch'
 

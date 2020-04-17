@@ -2,9 +2,9 @@ package co.za.codeboss.application.session.command.join;
 
 import co.za.codeboss.core.annotations.CommandHandlerAnnotation;
 import co.za.codeboss.core.command.handler.ICommandHandler;
-import co.za.codeboss.data.elastic.documents.EstimatorNestedDocument;
-import co.za.codeboss.data.elastic.documents.SessionDocument;
 import co.za.codeboss.data.elastic.repositories.ISessionElasticsearchRepository;
+import co.za.codeboss.documents.EstimatorNestedDocument;
+import co.za.codeboss.documents.SessionDocument;
 
 import java.util.Collections;
 import java.util.HashSet;

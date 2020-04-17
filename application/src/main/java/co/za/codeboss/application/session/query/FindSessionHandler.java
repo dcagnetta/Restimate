@@ -2,8 +2,8 @@ package co.za.codeboss.application.session.query;
 
 import co.za.codeboss.core.annotations.CommandHandlerAnnotation;
 import co.za.codeboss.core.command.handler.ICommandHandler;
-import co.za.codeboss.data.elastic.documents.SessionDocument;
 import co.za.codeboss.data.elastic.repositories.ISessionElasticsearchRepository;
+import co.za.codeboss.documents.SessionDocument;
 import co.za.codeboss.domain.model.Session;
 
 import java.util.concurrent.CompletableFuture;

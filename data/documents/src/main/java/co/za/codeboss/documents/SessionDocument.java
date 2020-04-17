@@ -1,4 +1,4 @@
-package co.za.codeboss.data.elastic.documents;
+package co.za.codeboss.documents;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
