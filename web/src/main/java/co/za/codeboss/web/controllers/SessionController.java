@@ -1,4 +1,4 @@
-package co.za.codeboss.web.session;
+package co.za.codeboss.web.controllers;
 
 import co.za.codeboss.application.session.command.create.CreateSession;
 import co.za.codeboss.application.session.command.create.ICreateSessionUseCase;
