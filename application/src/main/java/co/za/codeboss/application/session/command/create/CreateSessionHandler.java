@@ -22,6 +22,7 @@ public class CreateSessionHandler implements ICommandHandler<CreateSession, Void
         var session = SessionDocument.builder()
                 .id(command.getId())
                 .name(command.getName())
+                .shortId(command.getShortId())
                 .build();
 
         repository.save(session);

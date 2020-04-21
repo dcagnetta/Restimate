@@ -1,5 +1,6 @@
 package co.za.codeboss.application.session.command.join;
 
+import co.za.codeboss.core.Results.OperationResult;
 import co.za.codeboss.core.annotations.CommandHandlerAnnotation;
 import co.za.codeboss.core.command.handler.ICommandHandler;
 import co.za.codeboss.data.elastic.repositories.ISessionElasticsearchRepository;
@@ -12,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 @CommandHandlerAnnotation
-public class JoinSessionHandler implements ICommandHandler<JoinSession, Void> {
+public class JoinSessionHandler implements ICommandHandler<JoinSession, OperationResult<Void>> {
 
     private ISessionElasticsearchRepository repository;
 
@@ -21,11 +22,16 @@ public class JoinSessionHandler implements ICommandHandler<JoinSession, Void> {
     }
 
     @Override
-    public Future<Void> handle(JoinSession command) throws Exception {
-        Future<SessionDocument> future = repository.findOneById(command.getSessionId());
+    public Future<OperationResult<Void>> handle(JoinSession command) throws Exception {
+        Future<SessionDocument> future = repository.findOneByShortId(command.getShortId());
+
+        if(future.get() == null) {
+            return CompletableFuture.completedFuture(OperationResult.failure("Session not found."));
+        }
+
         var document =  future.get();
 
-        var estimator = EstimatorNestedDocument.create(command.getEstimatorName());
+        var estimator = EstimatorNestedDocument.create(command.getUsername());
 
         var estimators = document.getEstimators();
         // First joiner
@@ -34,11 +40,11 @@ public class JoinSessionHandler implements ICommandHandler<JoinSession, Void> {
             document.setEstimators(estimators);
             repository.save(document);
 
-            return CompletableFuture.completedFuture(null);
+            return CompletableFuture.completedFuture(OperationResult.success());
         }
 
         // joiners already present
         estimators.add(estimator);
-        return null;
+        return CompletableFuture.completedFuture(OperationResult.success());
     }
 }

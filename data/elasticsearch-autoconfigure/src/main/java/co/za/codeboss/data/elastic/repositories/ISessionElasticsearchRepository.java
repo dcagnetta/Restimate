@@ -14,5 +14,8 @@ public interface ISessionElasticsearchRepository extends ElasticsearchRepository
     Future<Iterable<SessionDocument>> findByName(String name);
 
     @Async
+    Future<SessionDocument> findOneByShortId(String shortId);
+
+    @Async
     Future<SessionDocument> findOneById(UUID id);
 }

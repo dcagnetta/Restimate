@@ -6,14 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Command
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class JoinSession {
-    private UUID sessionId;
-    private String estimatorName;
+    private String shortId;
+    private String username;
 }
