@@ -20,13 +20,13 @@ public class SessionController {
 
     private ICreateSessionUseCase creator;
     private ICommandHandler<FindSession, Session> finder;
-    private ICommandHandler<JoinSession, OperationResult<Void>> joiner;
+    private ICommandHandler<JoinSession, OperationResult> joiner;
 
     @Autowired
     public SessionController(
             ICreateSessionUseCase creator,
             ICommandHandler<FindSession, Session> finder,
-            ICommandHandler<JoinSession, OperationResult<Void>> joiner) {
+            ICommandHandler<JoinSession, OperationResult> joiner) {
         this.creator = creator;
         this.finder = finder;
         this.joiner = joiner;
@@ -52,7 +52,7 @@ public class SessionController {
 
     @PostMapping("/join")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<OperationResult<Void>> join(@RequestBody JoinSession command) throws Exception{
+    public ResponseEntity<OperationResult> join(@RequestBody JoinSession command) throws Exception{
         var op = joiner.handle(command).get();
 
         return ResponseEntity.ok(op);

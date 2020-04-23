@@ -1,70 +1,48 @@
 package co.za.codeboss.core.Results;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.io.Serializable;
+@Getter
+@Setter
+public class OperationResult {
 
-@Data
-public class OperationResult<T> implements Serializable {
-
-    private static final long serialVersionUID = 1696194043024336235L;
-
-    private boolean isSuccess;
+    /**
+     * success status
+     */
+    protected boolean isSuccess;
 
     /**
      * error message
      */
-    private String error;
+    protected String error;
 
     /**
-     * Result data
+     * Constructors
      */
-    private T data;
-
-    public OperationResult() {
-    }
-
+    protected OperationResult() {   }
     private OperationResult(boolean isSuccess) {
-        this(isSuccess, null);
-    }
-
-    private OperationResult(boolean isSuccess, T data) {
-        this(isSuccess, null, data);
-    }
-
-    private OperationResult(String error) {
-        this(false, error, null);
-    }
-
-    private OperationResult(boolean isSuccess, String error, T data) {
         this.isSuccess = isSuccess;
+    }
+    private OperationResult(String error) {
+        this(false);
         this.error = error;
-        this.data = data;
     }
 
     /**
-     * Success
+     * Factories
      *
-     * @param <T> Generic param
-     * @return Response message {@code Result}
+     * @return OperationResult {@code Result}
      */
-    public static <T> OperationResult<T> success() {
-        return new OperationResult<>(true);
+
+    public static OperationResult success() {
+        return new OperationResult(true);
     }
-    public static <T> OperationResult<T> failure() {
-        return new OperationResult<>(false);
+    public static OperationResult failure() {
+        return new OperationResult(false);
     }
-    public static <T> OperationResult<T> failure(String error) {
-        return new OperationResult<>(error);
+    public static OperationResult failure(String error) {
+        return new OperationResult(error);
     }
 
-
-    /**
-     * @param data Response data
-     * @param <T> Generic param
-     * @return Response message {@code Result}
-     */
-    public static <T> OperationResult<T> success(T data) {
-        return new OperationResult<>(true, data);
-    }
 }

@@ -1,10 +1,11 @@
-package co.za.codeboss.application.session.command.join;
+package co.za.codeboss.application.estimation;
 
+import co.za.codeboss.application.estimation.command.createitem.CreateEstimationItem;
 import co.za.codeboss.core.Results.OperationResult;
 import co.za.codeboss.core.annotations.CommandHandlerAnnotation;
 import co.za.codeboss.core.command.handler.ICommandHandler;
 import co.za.codeboss.data.elastic.repositories.ISessionElasticsearchRepository;
-import co.za.codeboss.documents.EstimatorNestedDocument;
+import co.za.codeboss.documents.EstimationItemNestedDocument;
 import co.za.codeboss.documents.SessionDocument;
 
 import java.util.Collections;
@@ -13,17 +14,18 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 @CommandHandlerAnnotation
-public class JoinSessionHandler implements ICommandHandler<JoinSession, OperationResult> {
+public class EstimationItemHandlers  implements
+        ICommandHandler<CreateEstimationItem, OperationResult> {
 
     private ISessionElasticsearchRepository repository;
 
-    public JoinSessionHandler(ISessionElasticsearchRepository repository) {
+    public EstimationItemHandlers(ISessionElasticsearchRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public Future<OperationResult> handle(JoinSession command) throws Exception {
-        Future<SessionDocument> future = repository.findOneByShortId(command.getShortId());
+    public Future<OperationResult> handle(CreateEstimationItem command) throws Exception {
+        Future<SessionDocument> future = repository.findOneById(command.getSessionId());
 
         if(future.get() == null) {
             return CompletableFuture.completedFuture(OperationResult.failure("Session not found."));
@@ -31,20 +33,21 @@ public class JoinSessionHandler implements ICommandHandler<JoinSession, Operatio
 
         var document =  future.get();
 
-        var estimator = EstimatorNestedDocument.create(command.getUsername());
+        var item = EstimationItemNestedDocument.create(command.getName(), command.getDescription());
 
-        var estimators = document.getEstimators();
-        // First joiner
-        if (estimators == null){
-            estimators = new HashSet<>(Collections.singletonList(estimator));
-            document.setEstimators(estimators);
+        var items = document.getItems();
+
+        // First item
+        if (items == null){
+            items = new HashSet<>(Collections.singletonList(item));
+            document.setItems(items);
             repository.save(document);
 
             return CompletableFuture.completedFuture(OperationResult.success());
         }
 
         // joiners already present
-        estimators.add(estimator);
+        items.add(item);
         return CompletableFuture.completedFuture(OperationResult.success());
     }
 }

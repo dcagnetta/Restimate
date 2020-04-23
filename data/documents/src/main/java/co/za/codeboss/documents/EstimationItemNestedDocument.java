@@ -13,4 +13,12 @@ public class EstimationItemNestedDocument {
     private String description;
 
     Set<EstimateNestedDocument> estimates;
+
+    public static EstimationItemNestedDocument create(String name, String description) {
+        var item =  new EstimationItemNestedDocument();
+        item.setId(UUID.randomUUID());
+        item.setName(name);
+        item.setDescription(description);
+        return item;
+    }
 }

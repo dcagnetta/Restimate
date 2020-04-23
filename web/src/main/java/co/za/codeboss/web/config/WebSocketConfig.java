@@ -48,7 +48,11 @@ public class WebSocketConfig implements  WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         // registers endpoint, enabling SockJS fallback options so that alternate transports
         // can be used if WebSocket is not available.
-        registry.addEndpoint("/websocket-demo").withSockJS();
+        registry
+                .addEndpoint("/websocket-demo")
+                .setAllowedOrigins("http://localhost:4200");
+        //.setAllowedOrigins("*");
+        //.withSockJS();
     }
 
     @Override
